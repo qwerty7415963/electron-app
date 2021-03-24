@@ -1,0 +1,22 @@
+#wrapper {
+    width: 800px;
+    margin: auto;
+}
+
+.oxo{
+    width: 230px;
+    height: 230px;
+    background-color: cornflowerblue;
+    border: 1px solid white;
+    float: left;
+}
+
+.X {
+    background-color: yellow;
+    pointer-events: none;
+}
+
+.O {
+    background-color: red;
+    pointer-events: none;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "nodejsgui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dgramx": "1.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
+    "net-socket.io": "^1.0.1",
+    "nssocket": "^0.6.0",
+    "socket.io": "^4.0.0"
+  },
+  "devDependencies": {
+    "electron": "^12.0.1"
+  }
+}
