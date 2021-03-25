@@ -1,11 +1,8 @@
-
 const dgramx = require('dgramx')
 const  { Server } = require('net-socket.io')
 const net_server = Server(3000);
 const { userJoin_client,users_client,userLeaveroom_client,getCurrentUser_client,getAlluserInroom_client } = require('./client/utils/client_user');
 const formatMessage_client = require('./client/utils/messages_client');
-//var nssoket = require('nssocket')
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +12,15 @@ net_server.on('connection',(socket) => {
   console.log(`TCP server listenning on ${socket.netSocket.localAddress}:${socket.netSocket.localPort}`)
   socket.on('tcp_user_info',(data) => {
     const user = userJoin_client(socket.netSocket.remoteAddress,data.username,data.room,socket)
-
+    //
+    let server_msg = document.getElementById('SVmsg')
+    let player_connect = document.createElement('div')
+    player_connect.innerHTML = `User at ${socket.netSocket.remoteAddress.slice(7)} has connected`
+    server_msg.appendChild(player_connect)
+    let this_user = document.createElement('div')
+    this_user.innerHTML = `User at ${socket.netSocket.remoteAddress.slice(7)} is ${user.username} in ${user.room}`
+    server_msg.append(this_user)
+    //
     //add new client info
     let tbody_child = document.getElementById('table-body').childNodes
     tbody_child.forEach(element => {
@@ -55,7 +60,13 @@ net_server.on('connection',(socket) => {
   socket.on('btn-click',([id,symbol]) => {
     const user = getCurrentUser_client(socket.netSocket.remoteAddress)
     const all = getAlluserInroom_client(user.room)
+    ///
+    let server_msg = document.getElementById('SVmsg')
+    let user_click = document.createElement('div')
+    user_click.innerHTML = `${user.username} clicked`
+    server_msg.append(user_click)
     console.log(`${user.username} clicked`)
+    ///
     all.forEach(sock =>{
       sock.Socket.emit('user-msg',[id, symbol])
     })
@@ -75,10 +86,6 @@ net_server.on('connection',(socket) => {
       sock.Socket.emit("chat-msg",[user.username,msg])
     })
   })
-
-
-
-
 /*
   socket.on('error',(err) => {
     const user = userLeaveroom_client(socket.netSocket.remoteAddress)
@@ -102,13 +109,19 @@ net_server.on('connection',(socket) => {
           document.getElementById('table-body').appendChild(tr)
         })
   })
-  */
-  
-
+*/
   socket.on('close',() => {
     console.log("client closed")
+    console.log(socket.netSocket.remoteAddress)
     const user = userLeaveroom_client(socket.netSocket.remoteAddress)
-    delete user
+    console.log(user)
+    //console.log(userLeaveroom_client(socket.netSocket.remoteAddress))
+    ///
+    let server_msg = document.getElementById('SVmsg')
+    let user_dis = document.createElement('div')
+    user_dis.innerHTML = `User at ${socket.netSocket.remoteAddress.slice(7)} as ${user.username} has disconnect`
+    server_msg.append(user_dis)
+    ///
         //add new client info
         let tbody_child = document.getElementById('table-body').childNodes
         tbody_child.forEach(element => {

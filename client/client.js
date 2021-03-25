@@ -14,7 +14,6 @@ function createWindow () {
   })
 
   win.loadFile('game.html')
-  win.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
